@@ -1,0 +1,14 @@
+<!doctype html><html>
+	<head><title>OK</title></head>
+	<body>
+		<div>
+		<p>
+		OK Upload <%= $filename %> (<%= $size %> bytes)
+		</p>
+		<p>
+		The file is now available as
+		<a href="<%= $url %>"><%= $url %></a>
+		</p>
+		</div>
+	</body>
+</html>

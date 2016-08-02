@@ -1,0 +1,12 @@
+<!doctype html><html>
+	<head><title>Upload</title></head>
+	<body>
+		<div>
+		<%= form_for ok =>
+			(method => 'post', enctype => 'multipart/form-data') => begin %>
+		<%= file_field 'file' %>
+		<%= submit_button 'Upload' %>
+		<% end %>
+		</div>
+	</body>
+</html>
