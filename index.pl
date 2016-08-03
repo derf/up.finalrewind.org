@@ -8,7 +8,7 @@ post '/ok' => sub {
 	if (my $upload = $self->req->upload('file')) {
 		my $name = $upload->filename;
 
-		my $prefix = '/srv/www/upload/cgi/cache';
+		my $prefix = $ENV{UPLOAD_BASE_DIR} // 'cache';
 		my $url;
 
 		$upload->move_to("${prefix}/${name}");
@@ -44,6 +44,8 @@ app->config(
 		workers => $ENV{WORKERS} // 1,
 	},
 );
+
+app->defaults( layout => 'default' );
 
 $ENV{MOJO_MAX_MESSAGE_SIZE} = 5242880000;
 

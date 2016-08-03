@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>up.finalrewind.org</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	%= stylesheet '/css/materialize.min.css'
+	%= javascript '/js/jquery-2.2.4.min.js'
+	%= javascript '/js/materialize.min.js'
+</head>
+<body>
+
+<nav>
+	<div class="nav-wrapper container">
+		<a hraf="/" class="brand-logo">up.finalrewind.org</a>
+		<!--
+		<ul id="nav-mobile" class="right hide-on-small-and-down">
+		<li><a href="help">help</a></li>
+		</ul>
+		-->
+	</div>
+</nav>
+
+<div class="container">
+%= content
+</div>
+
+</body>
+</html>

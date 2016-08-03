@@ -1,12 +1,15 @@
-<!doctype html><html>
-	<head><title>Upload</title></head>
-	<body>
-		<div>
-		<%= form_for ok =>
-			(method => 'post', enctype => 'multipart/form-data') => begin %>
-		<%= file_field 'file' %>
-		<%= submit_button 'Upload' %>
-		<% end %>
+<%= form_for ok => (method => 'post', enctype => 'multipart/form-data') => begin %>
+	<div class="file-field input-field">
+		<div class="btn">
+			<span>File</span>
+			<input type="file">
 		</div>
-	</body>
-</html>
+		<div class="file-path-wrapper">
+			<input class="file-path validate" type="text" name="file">
+		</div>
+		<%= file_field 'file' %>
+	</div>
+	<div class="center-align">
+		<%= submit_button 'Upload', class => 'waves-effect waves-light btn' %>
+	</div>
+<% end %>
