@@ -3,6 +3,8 @@ use Mojolicious::Lite;
 use Mojolicious::Static;
 use 5.010;
 
+push(@{ app->static->paths }, $ENV{UPLOAD_BASE_DIR} // 'cache');
+
 post '/ok' => sub {
 	my $self = shift;
 	if (my $upload = $self->req->upload('file')) {
