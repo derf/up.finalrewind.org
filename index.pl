@@ -30,15 +30,6 @@ post '/ok' => sub {
 any '/' => 'forbidden';
 any '/add' => 'form';
 
-any '/get/:file' => sub {
-	my $self = shift;
-	my $file = $self->stash('file');
-	my $static = $self->app->static;
-	$self->app->log->debug("serve $file");
-	$static->serve($self, $file);
-	$self->rendered;
-};
-
 app->config(
 	hypnotoad => {
 		listen => [ $ENV{LISTEN} // 'http://*:8097'],
