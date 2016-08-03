@@ -12,4 +12,9 @@
 	<div class="center-align">
 		<%= submit_button 'Upload', class => 'waves-effect waves-light btn' %>
 	</div>
+	<div class="status center-align" style="margin-top: 1em;">
+	</div>
+	<div class="progress">
+		<div class="determinate" style="width: 0%"></div>
+	</div>
 <% end %>

@@ -7,6 +7,8 @@
 	%= stylesheet '/css/materialize.min.css'
 	%= javascript '/js/jquery-2.2.4.min.js'
 	%= javascript '/js/materialize.min.js'
+	%= javascript '/js/jquery.form.min.js'
+	%= javascript '/js/progressbar.js'
 </head>
 <body>
 

@@ -1,3 +1,4 @@
+% layout undef;
 OK Upload <%= $filename %> (<%= $size %> bytes).
 The file is now available as
 <a href="<%= $url %>"><%= $url %></a>
