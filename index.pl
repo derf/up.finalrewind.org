@@ -13,8 +13,20 @@ post '/ok' => sub {
 		my $prefix = $ENV{UPLOAD_BASE_DIR} // 'cache';
 		my $url;
 
-		$upload->move_to("${prefix}/${name}");
-		$url = "https://up.finalrewind.org/${name}";
+		if ( not -d $prefix ) {
+			mkdir($prefix);
+		}
+
+		my $user = $self->req->headers->header('REMOTE_USER') // 'dev';
+
+		$user =~ tr{[a-zA-z0-9]}{_}c;
+
+		if ( not -d "$prefix/$user" ) {
+			mkdir("$prefix/$user");
+		}
+
+		$upload->move_to("${prefix}/${user}/${name}");
+		$url = "https://up.finalrewind.org/${user}/${name}";
 
 		$self->stash(
 			filename => $name,
