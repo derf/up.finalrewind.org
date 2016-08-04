@@ -3,11 +3,11 @@ use Mojolicious::Lite;
 use Mojolicious::Static;
 use 5.010;
 
-push(@{ app->static->paths }, $ENV{UPLOAD_BASE_DIR} // 'cache');
+push( @{ app->static->paths }, $ENV{UPLOAD_BASE_DIR} // 'cache' );
 
 post '/ok' => sub {
 	my $self = shift;
-	if (my $upload = $self->req->upload('file')) {
+	if ( my $upload = $self->req->upload('file') ) {
 		my $name = $upload->filename;
 
 		my $prefix = $ENV{UPLOAD_BASE_DIR} // 'cache';
@@ -30,8 +30,8 @@ post '/ok' => sub {
 
 		$self->stash(
 			filename => $name,
-			size => $upload->size,
-			url => $url,
+			size     => $upload->size,
+			url      => $url,
 		);
 	}
 	else {
@@ -39,14 +39,14 @@ post '/ok' => sub {
 	}
 };
 
-any '/' => 'forbidden';
+any '/'    => 'forbidden';
 any '/add' => 'form';
 
 app->config(
 	hypnotoad => {
-		listen => [ $ENV{LISTEN} // 'http://*:8097'],
+		listen => [ $ENV{LISTEN} // 'http://*:8097' ],
 		pid_file => '/tmp/upload.pid',
-		workers => $ENV{WORKERS} // 1,
+		workers  => $ENV{WORKERS} // 1,
 	},
 );
 
