@@ -1,4 +1,4 @@
-<%= form_for ok => (method => 'post', enctype => 'multipart/form-data') => begin %>
+<%= form_for add => (method => 'post', enctype => 'multipart/form-data') => begin %>
 	<div class="file-field input-field">
 		<div class="btn">
 			<span>File</span>

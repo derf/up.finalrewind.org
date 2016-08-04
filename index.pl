@@ -5,7 +5,7 @@ use 5.010;
 
 push( @{ app->static->paths }, $ENV{UPLOAD_BASE_DIR} // 'cache' );
 
-post '/ok' => sub {
+post '/add' => sub {
 	my $self = shift;
 	if ( my $upload = $self->req->upload('file') ) {
 		my $name = $upload->filename;
@@ -17,7 +17,7 @@ post '/ok' => sub {
 			mkdir($prefix);
 		}
 
-		my $user = $self->req->headers->header('REMOTE_USER') // 'dev';
+		my $user = $self->req->headers->header('X-Remote-User') // 'dev';
 
 		$user =~ tr{[a-zA-z0-9]}{_}c;
 
@@ -33,6 +33,7 @@ post '/ok' => sub {
 			size     => $upload->size,
 			url      => $url,
 		);
+		$self->render('ok');
 	}
 	else {
 		$self->render('form');
@@ -40,7 +41,7 @@ post '/ok' => sub {
 };
 
 any '/'    => 'forbidden';
-any '/add' => 'form';
+get '/add' => 'form';
 
 app->config(
 	hypnotoad => {
