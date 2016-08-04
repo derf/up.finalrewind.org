@@ -1,0 +1,10 @@
+<div class="row" style="margin-top: 1em;">
+  <div class="col s12 m12 l12 center-align">
+    <a class="waves-effect waves-light btn" href="/add">Upload</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 center-align">
+    <a class="waves-effect waves-light btn" href="/list">List files</a>
+  </div>
+</div>

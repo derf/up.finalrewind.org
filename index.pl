@@ -2,15 +2,17 @@
 use Mojolicious::Lite;
 use Mojolicious::Static;
 use 5.010;
+use File::Slurp qw(read_dir);
 
 push( @{ app->static->paths }, $ENV{UPLOAD_BASE_DIR} // 'cache' );
+
+my $prefix = $ENV{UPLOAD_BASE_DIR} // 'cache';
 
 post '/add' => sub {
 	my $self = shift;
 	if ( my $upload = $self->req->upload('file') ) {
 		my $name = $upload->filename;
 
-		my $prefix = $ENV{UPLOAD_BASE_DIR} // 'cache';
 		my $url;
 
 		if ( not -d $prefix ) {
@@ -40,7 +42,21 @@ post '/add' => sub {
 	}
 };
 
-any '/'    => 'forbidden';
+get '/list' => sub {
+	my $self = shift;
+	my $user = $self->req->headers->header('X-Remote-User') // 'dev';
+	my @files;
+
+	$user =~ tr{[a-zA-z0-9]}{_}c;
+
+	if (-d "$prefix/$user") {
+		@files = read_dir("$prefix/$user");
+	}
+
+	$self->stash(items => \@files, user => $user);
+};
+
+any '/'    => 'index';
 get '/add' => 'form';
 
 app->config(

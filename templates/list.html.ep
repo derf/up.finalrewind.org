@@ -1,0 +1,12 @@
+<div class="collection">
+  % for my $item (@{$items}) {
+    <a href="/<%= $user %>/<%= $item %>" class="collection-item avatar">
+      % if ($item =~ m{ [.] (jpg|jpeg|png|gif) $ }x) {
+        <img src="/<%= $user %>/<%= $item %>" alt="" class="circle">
+      % } else {
+        <i class="material-icons circle"></i>
+      % }
+      <span class="title"><%= $item %></span>
+    </a>
+  % }
+</div>
