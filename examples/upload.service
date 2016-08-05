@@ -1,0 +1,19 @@
+[Unit]
+Description=up.finalrewind.org
+After=network.target
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+PIDFile=/tmp/upload.pid
+ExecStart=/usr/bin/hypnotoad -f index.pl
+ExecStop=/usr/bin/hypnotoad -s index.pl
+ExecReload=/usr/bin/hypnotoad index.pl
+User=www-upload
+WorkingDirectory=/srv/www/upload
+Environment=LANG=en_US.UTF-8
+Environment=LISTEN=http://172.23.225.7:8097
+Environment=UPLOAD_BASE_DIR=/srv/www/upload/cache
+
+[Install]
+WantedBy=multi-user.target

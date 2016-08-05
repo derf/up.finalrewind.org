@@ -1,0 +1,21 @@
+up.finalrewind.org is a simple web upload service.  This is early-development
+software, everything (including the project name) may change any time.
+
+# Deployment
+
+Minimum working example:
+
+* `git clone https://github.com/derf/up.finalrewind.org.git`
+* `cd up.finalrewind.org`
+* `mkdir cache`
+* `LISTEN=http://127.0.0.1:port hypnotoad index.pl`
+
+In general: Clone the repo and run `hypnotoad index.pl` somewhere, and make
+sure that the `cache` directory is writable by the hypnotoad user. To run
+the service under systemd, see the service file provided in the example
+directory.
+
+Then configure your web server as a reverse proxy for the specified port with
+HTTP Basic Auth on the /add and /list URLs and to set the remote user in the
+X-Remote-User header (e.g. `proxy_set_header X-Remote-User $remote_user;` for
+nginx).
