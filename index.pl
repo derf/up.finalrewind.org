@@ -3,6 +3,7 @@ use Mojolicious::Lite;
 use Mojolicious::Static;
 use 5.010;
 use File::Slurp qw(read_dir);
+use MIME::Types;
 
 push( @{ app->static->paths }, $ENV{UPLOAD_BASE_DIR} // 'cache' );
 
@@ -47,13 +48,25 @@ get '/list' => sub {
 	my $user = $self->req->headers->header('X-Remote-User') // 'dev';
 	my @files;
 
+	my $mt = MIME::Types->new();
+
 	$user =~ tr{[a-zA-z0-9]}{_}c;
 
-	if (-d "$prefix/$user") {
-		@files = read_dir("$prefix/$user");
+	if ( -d "$prefix/$user" ) {
+		@files = map { { name => $_ } } read_dir("$prefix/$user");
+		@files = sort { $a->{name} cmp $b->{name} } @files;
 	}
 
-	$self->stash(items => \@files, user => $user);
+	for my $file (@files) {
+		if ( my $type = $mt->mimeTypeOf( $file->{name} ) ) {
+			$file->{mediatype} = $type->mediaType;
+		}
+	}
+
+	$self->stash(
+		items => \@files,
+		user  => $user
+	);
 };
 
 any '/'    => 'index';
